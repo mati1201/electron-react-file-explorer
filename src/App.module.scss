@@ -1,0 +1,17 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 200px;
+}
+
+.main {
+  flex-grow: 1;
+}

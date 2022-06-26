@@ -9,13 +9,13 @@ const createWindow = () => {
     height: 768,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
-    }
-  })
+      contextIsolation: false,
+    },
+  });
 
-  remoteMain.enable(window.webContents)
+  remoteMain.enable(window.webContents);
 
-  window.loadURL('http://localhost:3000')
-}
+  window.loadURL('http://localhost:3000');
+};
 
-app.on('ready', createWindow)
+app.on('ready', createWindow);

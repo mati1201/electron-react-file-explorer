@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "airbnb",
+    "airbnb-typescript"
+  ],
+  "parserOptions": {
+     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "linebreak-style": ["error", "windows"],
+    "react/button-has-type": [0],
+    "react/function-component-definition": ["error", {
+      "namedComponents": "arrow-function",
+      "unnamedComponents": ["function-expression", "arrow-function"]
+    }],
+    "react/jsx-max-props-per-line": ["error", { "maximum": 1 }],
+    "no-restricted-exports": "off",
+    "import/extensions": ["error", "never"],
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+    "no-param-reassign": ["error", { "props": false }]
+  }
+}

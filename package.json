@@ -30,7 +30,7 @@
     "eslint-plugin-react": "7.28.0",
     "eslint-plugin-react-hooks": "4.3.0"
   },
-  "main": "electron/main.ts",
+  "main": "electron/main.js",
   "scripts": {
     "react:start": "react-scripts start",
     "react:build": "react-scripts build",

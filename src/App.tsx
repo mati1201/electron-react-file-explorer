@@ -11,7 +11,6 @@ import styles from './App.module.scss';
 
 const fs = window.require('fs');
 const pathModule = window.require('path');
-
 const { app } = window.require('@electron/remote');
 
 const App: React.FC = () => {
@@ -75,6 +74,10 @@ const App: React.FC = () => {
     setPath(pathModule.join(path, folder));
   };
 
+  const onFileOpen = (fileName: string) => {
+    // shell.openPath(pathModule.join(path, fileName));
+  };
+
   const onPathOpen = (folderPath: string) => {
     if (folderPath !== path) {
       startTransition(() => {
@@ -102,10 +105,10 @@ const App: React.FC = () => {
           <SidebarMenu onPathOpen={onPathOpen} />
         </aside>
         <main className={styles.main}>
-          {`Current path: ${path}`}
           <FilesList
             files={files}
             onFolderOpen={onFolderOpen}
+            onFileOpen={onFileOpen}
           />
         </main>
       </div>

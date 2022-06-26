@@ -7,6 +7,8 @@ const createWindow = () => {
   const window = new BrowserWindow({
     width: 1024,
     height: 768,
+    frame: false,
+    autoHideMenuBar: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

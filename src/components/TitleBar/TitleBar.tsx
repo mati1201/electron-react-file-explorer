@@ -1,6 +1,12 @@
 import React from 'react';
 
 import styles from './TitleBar.module.scss';
+import { ReactComponent as Minimize } from '../../assets/minimize.svg';
+import { ReactComponent as Maximize } from '../../assets/maximize.svg';
+import { ReactComponent as Close } from '../../assets/close.svg';
+import { ReactComponent as BackArrow } from '../../assets/backArrow.svg';
+
+const { BrowserWindow } = window.require('@electron/remote');
 
 interface TitleBarProps {
   onGoBack: () => void;
@@ -16,19 +22,60 @@ const TitleBar: React.FC<TitleBarProps> = ({
   isForwardHistoryEmpty,
 }) => (
   <header className={styles.header}>
-    custom title bar
-    <button
-      onClick={onGoBack}
-      disabled={isBackHistoryEmpty}
-    >
-      <span>Go back...</span>
-    </button>
-    <button
-      onClick={onGoForward}
-      disabled={isForwardHistoryEmpty}
-    >
-      <span>Go Forward...</span>
-    </button>
+    <section className={styles.section}>
+      <button
+        onClick={onGoBack}
+        disabled={isBackHistoryEmpty}
+        className={styles.appActionButton}
+      >
+        <BackArrow
+          width={15}
+          height={15}
+        />
+      </button>
+      <button
+        onClick={onGoForward}
+        disabled={isForwardHistoryEmpty}
+        className={styles.appActionButton}
+      >
+        <div className={styles.rotate}>
+          <BackArrow
+            width={15}
+            height={15}
+          />
+        </div>
+
+      </button>
+    </section>
+    <section className={styles.section}>
+      <button
+        onClick={() => BrowserWindow.getFocusedWindow().minimize()}
+        className={styles.windowActionButton}
+      >
+        <Minimize
+          width={15}
+          height={15}
+        />
+      </button>
+      <button
+        onClick={() => BrowserWindow.getFocusedWindow().maximize()}
+        className={styles.windowActionButton}
+      >
+        <Maximize
+          width={15}
+          height={15}
+        />
+      </button>
+      <button
+        onClick={() => BrowserWindow.getFocusedWindow().close()}
+        className={styles.windowActionButton}
+      >
+        <Close
+          width={15}
+          height={15}
+        />
+      </button>
+    </section>
   </header>
 );
 

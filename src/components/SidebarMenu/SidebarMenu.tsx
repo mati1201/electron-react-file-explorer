@@ -31,6 +31,7 @@ const SidebarMenu: React.FC<SidebarMenuProps> = ({
       <button
         onClick={() => onPathOpen(menuItem.path)}
         key={menuItem.path}
+        className={styles.menuItem}
       >
         <span>{menuItem.name}</span>
       </button>

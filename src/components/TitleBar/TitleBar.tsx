@@ -44,7 +44,6 @@ const TitleBar: React.FC<TitleBarProps> = ({
             height={15}
           />
         </div>
-
       </button>
     </section>
     <section className={styles.section}>

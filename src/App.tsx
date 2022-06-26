@@ -75,6 +75,7 @@ const App: React.FC = () => {
   };
 
   const onFileOpen = (fileName: string) => {
+    console.log(fileName);
     // shell.openPath(pathModule.join(path, fileName));
   };
 

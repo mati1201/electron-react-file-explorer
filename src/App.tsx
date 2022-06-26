@@ -47,18 +47,6 @@ const App: React.FC = () => {
     }
   };
 
-  const onFolderOpen = (folder: string) => {
-    startTransition(() => {
-      setBackHistory([
-        ...backHistory,
-        path,
-      ]);
-      setForwardHistory([]);
-    });
-
-    setPath(pathModule.join(path, folder));
-  };
-
   const onGoForward = () => {
     const lastForwardHistoryItem = forwardHistory.pop();
 
@@ -75,6 +63,32 @@ const App: React.FC = () => {
     }
   };
 
+  const onFolderOpen = (folder: string) => {
+    startTransition(() => {
+      setBackHistory([
+        ...backHistory,
+        path,
+      ]);
+      setForwardHistory([]);
+    });
+
+    setPath(pathModule.join(path, folder));
+  };
+
+  const onPathOpen = (folderPath: string) => {
+    if (folderPath !== path) {
+      startTransition(() => {
+        setBackHistory([
+          ...backHistory,
+          path,
+        ]);
+        setForwardHistory([]);
+      });
+
+      setPath(folderPath);
+    }
+  };
+
   return (
     <div className={styles.app}>
       <TitleBar
@@ -85,7 +99,7 @@ const App: React.FC = () => {
       />
       <div className={styles.container}>
         <aside className={styles.sidebar}>
-          <SidebarMenu />
+          <SidebarMenu onPathOpen={onPathOpen} />
         </aside>
         <main className={styles.main}>
           {`Current path: ${path}`}

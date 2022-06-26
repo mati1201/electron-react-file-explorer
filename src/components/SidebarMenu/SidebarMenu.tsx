@@ -19,10 +19,21 @@ const sidebarStaticFoldersList = [
   },
 ];
 
-const SidebarMenu: React.FC = () => (
+interface SidebarMenuProps {
+  onPathOpen: (folderPath: string) => void;
+}
+
+const SidebarMenu: React.FC<SidebarMenuProps> = ({
+  onPathOpen,
+}) => (
   <div className={styles.wrapper}>
-    {sidebarStaticFoldersList.map((element) => (
-      <span key={element.path}>{element.name}</span>
+    {sidebarStaticFoldersList.map((menuItem) => (
+      <button
+        onClick={() => onPathOpen(menuItem.path)}
+        key={menuItem.path}
+      >
+        <span>{menuItem.name}</span>
+      </button>
     ))}
   </div>
 );

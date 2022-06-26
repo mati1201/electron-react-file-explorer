@@ -11,7 +11,7 @@ const FilesList: React.FC<FilesListProps> = ({
   files,
   onFolderOpen,
 }) => {
-  const onButtonClick = (event: React.MouseEvent<HTMLElement>, file: File) => {
+  const onFileButtonClick = (event: React.MouseEvent<HTMLElement>, file: File) => {
     if (event.detail === 1) {
       // mark selected
     }
@@ -30,10 +30,10 @@ const FilesList: React.FC<FilesListProps> = ({
       {files.map((file) => (
         <div key={file.name}>
           {file.isDirectory && (
-          <span>dir:</span>
+            <span>dir:</span>
           )}
           <button
-            onClick={(event: React.MouseEvent<HTMLElement>) => onButtonClick(event, file)}
+            onClick={(event: React.MouseEvent<HTMLElement>) => onFileButtonClick(event, file)}
             value={file.name}
           >
             <span>{file.name}</span>

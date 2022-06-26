@@ -1,7 +1,8 @@
 import React, {
-  useState, useMemo, useCallback, startTransition,
+  useState, useMemo, startTransition,
 } from 'react';
 
+import TitleBar from './components/TitleBar';
 import SidebarMenu from './components/SidebarMenu';
 import FilesList from './components/FilesList';
 import type { File } from './typings/file';
@@ -15,7 +16,8 @@ const { app } = window.require('@electron/remote');
 
 const App: React.FC = () => {
   const [path, setPath] = useState<string>(app.getPath('documents'));
-  const [backHistory, setBackHistory] = useState<string>('');
+  const [backHistory, setBackHistory] = useState<string[]>([]);
+  const [forwardHistory, setForwardHistory] = useState<string[]>([]);
 
   const files = useMemo(
     () => fs.readdirSync(path).map((file: File) => {
@@ -29,33 +31,68 @@ const App: React.FC = () => {
     [path],
   );
 
-  const onGoBack = () => useCallback(() => {
+  const onGoBack = () => {
+    const lastBackHistoryItem = backHistory.pop();
+
+    if (lastBackHistoryItem) {
+      startTransition(() => {
+        setForwardHistory([
+          ...forwardHistory,
+          path,
+        ]);
+        setBackHistory(backHistory);
+      });
+
+      setPath(lastBackHistoryItem);
+    }
+  };
+
+  const onFolderOpen = (folder: string) => {
     startTransition(() => {
-      setBackHistory(path);
+      setBackHistory([
+        ...backHistory,
+        path,
+      ]);
+      setForwardHistory([]);
     });
 
-    setPath(pathModule.dirname(path));
-  }, []);
-
-  const onFolderOpen = (folder: string) => useCallback(() => {
     setPath(pathModule.join(path, folder));
-  }, []);
+  };
 
-  const onGoForward = () => useCallback(() => {
-    setPath(backHistory);
-  }, []);
+  const onGoForward = () => {
+    const lastForwardHistoryItem = forwardHistory.pop();
+
+    if (lastForwardHistoryItem) {
+      startTransition(() => {
+        setBackHistory([
+          ...backHistory,
+          path,
+        ]);
+        setForwardHistory(forwardHistory);
+      });
+
+      setPath(lastForwardHistoryItem);
+    }
+  };
 
   return (
     <div className={styles.app}>
-      <header>
-        <span>Go back...</span>
-      </header>
+      <TitleBar
+        onGoBack={onGoBack}
+        onGoForward={onGoForward}
+        isBackHistoryEmpty={!backHistory.length}
+        isForwardHistoryEmpty={!forwardHistory.length}
+      />
       <div className={styles.container}>
         <aside className={styles.sidebar}>
           <SidebarMenu />
         </aside>
         <main className={styles.main}>
-          <FilesList files={files} />
+          {`Current path: ${path}`}
+          <FilesList
+            files={files}
+            onFolderOpen={onFolderOpen}
+          />
         </main>
       </div>
     </div>

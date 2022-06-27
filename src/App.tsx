@@ -1,5 +1,5 @@
 import React, {
-  useState, useMemo, startTransition,
+  useState, useEffect, startTransition,
 } from 'react';
 
 import TitleBar from '@/components/TitleBar';
@@ -15,21 +15,29 @@ const { app } = window.require('@electron/remote');
 const { shell } = require('electron');
 
 const App: React.FC = () => {
-  const [path, setPath] = useState<string>(app.getPath('documents'));
+  const [files, setFiles] = useState<File[]>([]);
+  const [path, setPath] = useState<string>(app.getPath('desktop'));
   const [backHistory, setBackHistory] = useState<string[]>([]);
   const [forwardHistory, setForwardHistory] = useState<string[]>([]);
 
-  const files = useMemo(
-    () => fs.readdirSync(path).map((file: File) => {
-      const properties = fs.statSync(pathModule.join(path, file));
+  const getFilesList = (): File[] => fs.readdirSync(path).map((file: File) => {
+    const properties = fs.statSync(pathModule.join(path, file));
 
-      return {
-        name: file,
-        isDirectory: properties.isDirectory(),
-      };
-    }),
-    [path],
-  );
+    return {
+      name: file,
+      isDirectory: properties.isDirectory(),
+    };
+  });
+
+  useEffect(() => {
+    setFiles(getFilesList());
+
+    const interval = setInterval(() => {
+      setFiles(getFilesList());
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [path]);
 
   const onGoBack = () => {
     const lastBackHistoryItem = backHistory.pop();

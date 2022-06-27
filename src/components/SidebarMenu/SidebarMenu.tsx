@@ -23,9 +23,7 @@ interface SidebarMenuProps {
   onPathOpen: (folderPath: string) => void;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({
-  onPathOpen,
-}) => (
+const SidebarMenu: React.FC<SidebarMenuProps> = ({ onPathOpen }) => (
   <div className={styles.wrapper}>
     {sidebarStaticFoldersList.map((menuItem) => (
       <button

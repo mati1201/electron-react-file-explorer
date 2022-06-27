@@ -13,3 +13,9 @@ You will also see any lint errors in the console.
 ### `yarn build`
 
 Builds Electron and React production app
+
+## Required VSCode extensions for code formatting on save
+
+"esbenp.prettier-vscode",
+"dbaeumer.vscode-eslint",
+"rohit-gohri.format-code-action"

@@ -13,9 +13,7 @@ interface FilesListProps {
 }
 
 const FilesList: React.FC<FilesListProps> = ({
-  files,
-  onFolderOpen,
-  onFileOpen,
+  files, onFolderOpen, onFileOpen,
 }) => {
   const onItemButtonClick = (event: React.MouseEvent<HTMLElement>, file: File) => {
     if (event.detail === 1) {

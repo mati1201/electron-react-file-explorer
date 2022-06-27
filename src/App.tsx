@@ -35,10 +35,7 @@ const App: React.FC = () => {
 
     if (lastBackHistoryItem) {
       startTransition(() => {
-        setForwardHistory([
-          ...forwardHistory,
-          path,
-        ]);
+        setForwardHistory([...forwardHistory, path]);
         setBackHistory(backHistory);
       });
 
@@ -51,10 +48,7 @@ const App: React.FC = () => {
 
     if (lastForwardHistoryItem) {
       startTransition(() => {
-        setBackHistory([
-          ...backHistory,
-          path,
-        ]);
+        setBackHistory([...backHistory, path]);
         setForwardHistory(forwardHistory);
       });
 
@@ -64,10 +58,7 @@ const App: React.FC = () => {
 
   const onFolderOpen = (folder: string) => {
     startTransition(() => {
-      setBackHistory([
-        ...backHistory,
-        path,
-      ]);
+      setBackHistory([...backHistory, path]);
       setForwardHistory([]);
     });
 
@@ -82,10 +73,7 @@ const App: React.FC = () => {
   const onPathOpen = (folderPath: string) => {
     if (folderPath !== path) {
       startTransition(() => {
-        setBackHistory([
-          ...backHistory,
-          path,
-        ]);
+        setBackHistory([...backHistory, path]);
         setForwardHistory([]);
       });
 

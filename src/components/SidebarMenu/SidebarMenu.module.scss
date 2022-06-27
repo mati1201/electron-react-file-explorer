@@ -1,3 +1,5 @@
+@import '@/styles/_colors.scss';
+
 .wrapper {
   display: flex;
   flex-direction: column;
@@ -6,9 +8,15 @@
 
 .menuItem {
   border: 0;
-  background-color: unset;
   cursor: pointer;
+  background-color: unset;
   text-align: left;
-  padding: 10px 15px 5px;
+  padding: 10px 15px;
   font-size: 16px;
+  color: $primaryColor;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: $hoveredSecondaryColor;
+  }
 }

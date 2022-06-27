@@ -1,19 +1,26 @@
+@import '@/styles/_colors.scss';
+@import '@/styles/_constants.scss';
+
 .app {
   display: flex;
   flex-direction: column;
+  height: 100vh;
 }
 
 .container {
   display: flex;
+  height: calc(100% - $titleBarHeight);
 }
 
 .sidebar {
-  min-width: 159px;
-  border-right: 1px solid darkslategray;
+  min-width: 160px;
+  background-color: $secondaryColor;
+  overflow-y: auto;
 }
 
 .main {
   flex-grow: 1;
   width: 100%;
   padding: 15px 10px;
+  overflow-y: auto;
 }

@@ -1,10 +1,10 @@
 import React from 'react';
 
 import styles from './TitleBar.module.scss';
-import { ReactComponent as Minimize } from '../../assets/minimize.svg';
-import { ReactComponent as Maximize } from '../../assets/maximize.svg';
-import { ReactComponent as Close } from '../../assets/close.svg';
-import { ReactComponent as BackArrow } from '../../assets/backArrow.svg';
+import { ReactComponent as Minimize } from '../../assets/icons/minimize.svg';
+import { ReactComponent as Maximize } from '../../assets/icons/maximize.svg';
+import { ReactComponent as Close } from '../../assets/icons/close.svg';
+import { ReactComponent as BackArrow } from '../../assets/icons/backArrow.svg';
 
 const { BrowserWindow } = window.require('@electron/remote');
 

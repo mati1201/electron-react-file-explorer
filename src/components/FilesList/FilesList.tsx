@@ -1,8 +1,8 @@
 import React from 'react';
 
 import type { File } from '../../typings/file';
-import { ReactComponent as FolderIcon } from '../../assets/folder.svg';
-import { ReactComponent as FileIcon } from '../../assets/file.svg';
+import { ReactComponent as FolderIcon } from '../../assets/icons/folder.svg';
+import { ReactComponent as FileIcon } from '../../assets/icons/file.svg';
 
 import styles from './FilesList.module.scss';
 
@@ -32,9 +32,7 @@ const FilesList: React.FC<FilesListProps> = ({
   };
 
   return (
-    <div
-      className={styles.list}
-    >
+    <div className={styles.list}>
       {files.map((file) => (
         <div
           key={file.name}

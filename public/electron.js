@@ -1,5 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { app, BrowserWindow } = require('electron');
 const remoteMain = require('@electron/remote/main');
+const path = require('path');
+const isDev = require('electron-is-dev');
 
 remoteMain.initialize();
 
@@ -17,7 +20,11 @@ const createWindow = () => {
 
   remoteMain.enable(window.webContents);
 
-  window.loadURL('http://localhost:3000');
+  window.loadURL(
+    isDev
+      ? 'http://localhost:3000'
+      : `file://${path.join(__dirname, '../build/index.html')}`,
+  );
 };
 
 app.on('ready', createWindow);

@@ -1,4 +1,7 @@
-import React from 'react';
+import React, {
+  useState, useLayoutEffect, useRef,
+} from 'react';
+import classNames from 'classnames';
 
 import type { File } from '@/typings/file';
 import { ReactComponent as FolderIcon } from '@/assets/icons/folder.svg';
@@ -15,10 +18,25 @@ interface FilesListProps {
 const FilesList: React.FC<FilesListProps> = ({
   files, onFolderOpen, onFileOpen,
 }) => {
-  const onItemButtonClick = (event: React.MouseEvent<HTMLElement>, file: File) => {
-    if (event.detail === 1) {
-      // mark selected
+  const [selectedFileName, setSelectedFileName] = useState<string>('');
+  const ref: React.Ref<HTMLDivElement> = useRef(null);
+
+  const onOutsideClick = (event: MouseEvent) => {
+    if (ref.current?.contains(event.target as Node)) {
+      setSelectedFileName('');
     }
+  };
+
+  useLayoutEffect(() => {
+    document.addEventListener('click', onOutsideClick, true);
+
+    return () => {
+      document.removeEventListener('click', onOutsideClick, true);
+    };
+  }, []);
+
+  const onItemButtonClick = (event: React.MouseEvent<HTMLElement>, file: File) => {
+    setSelectedFileName(file.name);
 
     if (event.detail === 2) {
       if (file.isDirectory) {
@@ -30,7 +48,10 @@ const FilesList: React.FC<FilesListProps> = ({
   };
 
   return (
-    <div className={styles.list}>
+    <div
+      className={styles.list}
+      ref={ref}
+    >
       {files.map((file) => (
         <div
           key={file.name}
@@ -38,7 +59,8 @@ const FilesList: React.FC<FilesListProps> = ({
         >
           <button
             onClick={(event: React.MouseEvent<HTMLElement>) => onItemButtonClick(event, file)}
-            className={styles.tileButton}
+            className={classNames(styles.tileButton, { [`${styles.selectedTileButton}`]: selectedFileName === file.name })}
+            title={file.name}
           >
             {file.isDirectory ? (
               <FolderIcon
@@ -51,12 +73,7 @@ const FilesList: React.FC<FilesListProps> = ({
                 height={45}
               />
             )}
-            <span
-              className={styles.fileName}
-              title={file.name}
-            >
-              {file.name}
-            </span>
+            <span className={styles.fileName}>{file.name}</span>
           </button>
         </div>
       ))}

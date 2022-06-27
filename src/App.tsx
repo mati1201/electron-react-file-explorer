@@ -20,14 +20,23 @@ const App: React.FC = () => {
   const [backHistory, setBackHistory] = useState<string[]>([]);
   const [forwardHistory, setForwardHistory] = useState<string[]>([]);
 
-  const getFilesList = (): File[] => fs.readdirSync(path).map((file: File) => {
-    const properties = fs.statSync(pathModule.join(path, file));
+  const getFilesList = (): File[] => fs
+    .readdirSync(path)
+    .map((file: File) => {
+      const properties = fs.statSync(pathModule.join(path, file));
 
-    return {
-      name: file,
-      isDirectory: properties.isDirectory(),
-    };
-  });
+      return {
+        name: file,
+        isDirectory: properties.isDirectory(),
+      };
+    })
+    .sort((a: File, b: File) => {
+      if (a.isDirectory === b.isDirectory) {
+        return a.name.localeCompare(b.name);
+      }
+
+      return a.isDirectory ? -1 : 1;
+    });
 
   useEffect(() => {
     setFiles(getFilesList());

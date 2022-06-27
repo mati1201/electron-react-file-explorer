@@ -27,10 +27,15 @@
 
 .appActionButton {
   @include header-button-common-styles;
+  transition: background-color 0.2s;
   width: 80px;
 }
 
 .windowActionButton {
   @include header-button-common-styles;
-  width: 40px;
+  width: 50px;
+}
+
+.disabledButton {
+  background-color: gray;
 }

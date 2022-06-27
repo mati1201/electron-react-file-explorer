@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import styles from './TitleBar.module.scss';
 import { ReactComponent as Minimize } from '@/assets/icons/minimize.svg';
@@ -26,7 +27,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
       <button
         onClick={onGoBack}
         disabled={isBackHistoryEmpty}
-        className={styles.appActionButton}
+        className={classNames(styles.appActionButton, { [`${styles.disabledButton}`]: isBackHistoryEmpty })}
       >
         <BackArrow
           width={15}
@@ -36,7 +37,7 @@ const TitleBar: React.FC<TitleBarProps> = ({
       <button
         onClick={onGoForward}
         disabled={isForwardHistoryEmpty}
-        className={styles.appActionButton}
+        className={classNames(styles.appActionButton, { [`${styles.disabledButton}`]: isForwardHistoryEmpty })}
       >
         <div className={styles.rotate}>
           <BackArrow

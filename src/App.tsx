@@ -2,16 +2,17 @@ import React, {
   useState, useMemo, startTransition,
 } from 'react';
 
-import TitleBar from './components/TitleBar';
-import SidebarMenu from './components/SidebarMenu';
-import FilesList from './components/FilesList';
-import type { File } from './typings/file';
+import TitleBar from '@/components/TitleBar';
+import SidebarMenu from '@/components/SidebarMenu';
+import FilesList from '@/components/FilesList';
+import type { File } from '@/typings/file';
 
 import styles from './App.module.scss';
 
 const fs = window.require('fs');
 const pathModule = window.require('path');
 const { app } = window.require('@electron/remote');
+const { shell } = require('electron');
 
 const App: React.FC = () => {
   const [path, setPath] = useState<string>(app.getPath('documents'));
@@ -66,8 +67,7 @@ const App: React.FC = () => {
   };
 
   const onFileOpen = (fileName: string) => {
-    console.log(fileName);
-    // shell.openPath(pathModule.join(path, fileName));
+    shell.openPath(pathModule.join(path, fileName));
   };
 
   const onPathOpen = (folderPath: string) => {

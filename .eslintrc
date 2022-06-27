@@ -15,7 +15,7 @@
     ],
     "react/jsx-max-props-per-line": ["error", { "maximum": 1 }],
     "no-restricted-exports": "off",
-    "import/extensions": ["error", "never"],
+    "import/extensions": ["error", "never", { "svg": "always" }],
     "react/prop-types": "off",
     "react/require-default-props": "off",
     "no-param-reassign": ["error", { "props": false }],
@@ -26,6 +26,7 @@
         "minProperties": 2,
         "consistent": false
       }
-    ]
+    ],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
   }
 }

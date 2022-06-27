@@ -1,8 +1,8 @@
 import React from 'react';
 
-import type { File } from '../../typings/file';
-import { ReactComponent as FolderIcon } from '../../assets/icons/folder.svg';
-import { ReactComponent as FileIcon } from '../../assets/icons/file.svg';
+import type { File } from '@/typings/file';
+import { ReactComponent as FolderIcon } from '@/assets/icons/folder.svg';
+import { ReactComponent as FileIcon } from '@/assets/icons/file.svg';
 
 import styles from './FilesList.module.scss';
 

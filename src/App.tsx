@@ -108,7 +108,10 @@ const App: React.FC = () => {
       />
       <div className={styles.container}>
         <aside className={styles.sidebar}>
-          <SidebarMenu onPathOpen={onPathOpen} />
+          <SidebarMenu
+            onPathOpen={onPathOpen}
+            currentPath={path}
+          />
         </aside>
         <main className={styles.main}>
           <FilesList

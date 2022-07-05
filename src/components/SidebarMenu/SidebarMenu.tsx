@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 
 import styles from './SidebarMenu.module.scss';
 
@@ -21,15 +22,18 @@ const sidebarStaticFoldersList = [
 
 interface SidebarMenuProps {
   onPathOpen: (folderPath: string) => void;
+  currentPath: string;
 }
 
-const SidebarMenu: React.FC<SidebarMenuProps> = ({ onPathOpen }) => (
+const SidebarMenu: React.FC<SidebarMenuProps> = ({
+  onPathOpen, currentPath,
+}) => (
   <div className={styles.wrapper}>
     {sidebarStaticFoldersList.map((menuItem) => (
       <button
         onClick={() => onPathOpen(menuItem.path)}
         key={menuItem.path}
-        className={styles.menuItem}
+        className={classNames(styles.menuItem, { [`${styles.activeMenuItem}`]: menuItem.path === currentPath })}
       >
         <span>{menuItem.name}</span>
       </button>
